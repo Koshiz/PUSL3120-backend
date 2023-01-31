@@ -13,13 +13,13 @@ stages {
     
       stage('Make gradlew Executable') {
             steps {
-                sh 'chmod +x ./gradlew'
+                sh 'chmod +x ./build.gradle'
             }
         }
 
     stage('Build') {
         steps {
-            sh 'chmod +x ./gradlew'
+            sh 'chmod +x ./build.gradle'
             sh './gradlew build'
         }
     }
