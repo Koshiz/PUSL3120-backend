@@ -19,7 +19,7 @@ stages {
 
     stage('Build') {
         steps {
-            sh 'chmod +x ./gradlew'
+            sh 'chmod +x ./build.gradle'
             sh './gradlew build'
         }
     }
