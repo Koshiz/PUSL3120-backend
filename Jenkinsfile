@@ -10,10 +10,15 @@ stages {
              git 'https://github.com/Koshiz/PUSL3120-backend.git'
         }
     }
+    
+      stage('Make gradlew Executable') {
+            steps {
+                sh 'chmod +x ./gradlew'
+            }
+        }
 
     stage('Build') {
         steps {
-            sh 'chmod +x ./gradlew'
             sh './gradlew build'
         }
     }
