@@ -1,20 +1,36 @@
-pipeline {
-    agent any
-    stages {
-        stage('Clone repository') {
-            steps {
-                git 'https://github.com/Koshiz/PUSL3120-backend.git'
-            }
+stages {
+    stage('Clone Repository') {
+         steps {
+             git 'https://github.com/Koshiz/PUSL3120-backend.git'
         }
-        stage('Install dependencies') {
-            steps {
-                sh 'npm install'
-            }
+    }
+
+    stage('Build') {
+        steps {
+            sh './gradlew build'
         }
-        stage('Start server') {
-            steps {
-                sh 'npm start'
-            }
+    }
+
+    stage('Test') {
+        steps {
+            sh './gradlew test'
+        }
+    }
+
+    stage('Deploy Backend') {
+        steps {
+            sh './deploy-backend.sh'
         }
     }
 }
+
+post {
+    always {
+        githubStatus context: 'continuous-integration/jenkins', state: 'success'
+      
+            githubComment message: "The backend pipeline completed successfully!"
+            githubLabel labels: ['approved']
+
+    }
+}
+
